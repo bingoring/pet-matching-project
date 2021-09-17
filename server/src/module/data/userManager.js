@@ -18,6 +18,25 @@ class DataUserManager {
         }
     }
 
+    static async register(user_id, user_pwd, user_name) {
+        const userInfo = await this.findUserInDB(user_id);
+        console.log(`userInfo: ${JSON.stringify(userInfo)}`);
+        if (userInfo !== null) {
+            console.log(`userId is already existed! ${userInfo.USER_ID}`);
+            return false;
+        }
+        console.log(`create new data: ${user_id}, ${user_pwd}, ${user_name}`);
+        models.users
+            .create({ USER_ID: user_id, USER_PWD: encrypt.encrypt(user_pwd), USER_NAME: user_name, createdAt: moment().format("YYYY-MM-DD HH:mm:ss"), USER_POSITION: 1 })
+            .then((result) => {
+                console.log(`새 유저 생성 성공 : ${result.USER_ID}`);
+            })
+            .catch((err) => {
+                console.log(`유저 생성 실패: ${err}`);
+            });
+        return true;
+    }
+
     static async login(user_id, user_pwd) {
         const userInfo = await this.findUserInDB(user_id);
         console.log(JSON.stringify(userInfo));
@@ -36,7 +55,7 @@ class DataUserManager {
 
             const token = jwt.sign(
                 {
-                    USER_ID: userInfo.USER_ID,
+                    USER_ID: user_id,
                     USER_NAME: userInfo.USER_NAME,
                     USER_LASTLOGIN: nowDate,
                     USER_POSITION: userInfo.USER_POSITION,

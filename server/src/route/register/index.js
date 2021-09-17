@@ -1,8 +1,8 @@
-const express = require('express')
-const register = require('./register')
+const express = require("express");
+const register = require("./register");
 
-const router = express.Router()
+const router = express.Router();
 
-router.use('/', register)
+router.use("/", register);
 
-module.exports = router
+module.exports = router;

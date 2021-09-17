@@ -1,21 +1,22 @@
-const express = require('express');
-const DataUserManager = require('../../module/data/userRegister')
+const express = require("express");
+const DataUserManager = require("../../module/data/userManager");
 const router = express.Router();
-var path = require('path')
+var path = require("path");
 
-router.get('/', function(req,res){
-    console.log("get register url");
-    res.sendFile(path.join(__dirname, '../../../public/register.html'))
-})
+router.get("/", function (req, res) {
+    console.log("here");
+    res.sendFile(path.join(__dirname, "../../../public/register.html"));
+});
 
-router.post('/', (req, res)=>{
-    const userId = req.body.user_id;
-    const userPwd = req.body.user_pwd;
-    const userName = req.body.user_name;
-
-    const registerData = DataUserManager.register(userId,userPwd,userName);
-    console.log(`registerData: ${registerData}`)
-    return res.json({code: 200, data: registerData})
-})
+router.post("/", async (req, res) => {
+    const user_id = req.body.user_id;
+    const user_pwd = req.body.user_pwd;
+    const user_name = req.body.user_name;
+    const resultCode = await DataUserManager.register(user_id, user_pwd, user_name);
+    if(resultCode == false){
+        return res.json({ code: 500 });
+    };
+    return res.json({ code: 200, message: "successfully registered." });
+});
 
 module.exports = router;
