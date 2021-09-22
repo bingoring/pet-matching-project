@@ -29,14 +29,11 @@ module.exports = function (sequelize, DataTypes) {
     },
   );
 
-  // users.associate = function (models) {
-  //   users.hasOne(models.Devices, {
-  //     foreignKey: "DEVICE_USER_ID",
-  //   });
-  //   users.hasMany(models.Requests, {
-  //     foreignKey: "REG_USER_ID",
-  //   });
-  // };
+  users.associate = function (models) {
+    users.hasMany(models.posts, {
+      foreignKey: "POST_CREATOR_ID",
+    });
+  };
 
   return users;
 };

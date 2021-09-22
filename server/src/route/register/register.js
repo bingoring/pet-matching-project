@@ -4,7 +4,6 @@ const router = express.Router();
 var path = require("path");
 
 router.get("/", function (req, res) {
-    console.log("here");
     res.sendFile(path.join(__dirname, "../../../public/register.html"));
 });
 
