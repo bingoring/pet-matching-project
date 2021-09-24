@@ -14,10 +14,6 @@ router.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
-//auth check
-app.use(jwtAuth.authChecker);
-
 //db connection
 models.sequelize
     .sync()
@@ -29,6 +25,7 @@ models.sequelize
         console.log(err);
     });
 
+//cors
 const cors = require("cors");
 router.use(
     cors({
@@ -40,8 +37,9 @@ router.use(
 app.set("trust proxy", 1);
 app.use(logger("dev"));
 
+//routers
 app.use("/api", route);
-//app.use("/api/temp", express.static("./static"));
+app.use("/api/images", express.static("./static"));
 
 app.use((req, res, next) => {
     next(createError(404));
