@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
         autoIncrement: true,
       },
       POST_TYPE: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.STRING(30),
         allowNull: false,
         comment: "게시글 종류",
       },
@@ -35,19 +35,19 @@ module.exports = function (sequelize, DataTypes) {
       },
       POST_COMMENTS: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       POST_CREATOR_NAME: {
         type: DataTypes.STRING(30),
         allowNull: false,
       },
       POST_IMAGE: {
-        type: DataTypes.STRING(40),
+        type: DataTypes.STRING(100),
         allowNull: true,
       },
       POST_CREATOR_ID: {
         type: DataTypes.STRING(50),
-        allowNull: true,
+        allowNull: false,
         references: {
           model: "users",
           key: "USER_ID",

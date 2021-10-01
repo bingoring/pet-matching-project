@@ -4,7 +4,7 @@ const router = express.Router();
 var path = require("path");
 
 router.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "../../../public/register.html"));
+    res.render('register');
 });
 
 router.post("/", async (req, res) => {

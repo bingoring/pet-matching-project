@@ -15,7 +15,7 @@ class DataPostManager {
     }
 
     static async getPosts(postIndex) {
-        const index = postIndex ?? 0;
+        const index = postIndex ? Number(postIndex) : 0;
         const postData = [];
         for (let i = index; i < index + 5; i++) {
             const postIndexData = await this.findPostByIndex(i);
@@ -24,6 +24,16 @@ class DataPostManager {
             }
         }
         return postData;
+    }
+
+    static async uploadPosts(query){
+        try{
+            let uploadResult = models.posts.create(query);
+            return uploadResult;
+        }catch(err){
+            console.log(err);
+            return undefined;
+        }
     }
 }
 
