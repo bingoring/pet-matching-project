@@ -1,8 +1,7 @@
 const express = require("express");
 const DataUserManager = require("../../module/data/userManager");
 const router = express.Router();
-const path = require("path");
-
+const jwtCheck = require("../../lib/jwt.auth")
 router.get("/", function (req, res) {
     res.render('login');
 });

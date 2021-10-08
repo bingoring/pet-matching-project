@@ -37,6 +37,15 @@ class DataUserManager {
         return true;
     }
 
+    static async checkDuplicate(user_id) {
+        const userInfo = await this.findUserInDB(user_id);
+        if (userInfo !== null) {
+            console.log(`userId is already exists! ${userInfo.USER_ID}`);
+            return undefined;
+        }
+        return true;
+    }
+
     static async login(user_id, user_pwd) {
         const userInfo = await this.findUserInDB(user_id);
         console.log(JSON.stringify(userInfo));
